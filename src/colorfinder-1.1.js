@@ -15,14 +15,14 @@ function ColorFinder(colorFactorCallback) {
     var rgb = null;
     if (!this.callback) this.callback = function() { return 1; };
     var data = this.getImageData(imgEl);
-    rgb = this.getMostProminentRGBImpl(data, 6, rgb, this.callback);
-    rgb = this.getMostProminentRGBImpl(data, 4, rgb, this.callback);
-    rgb = this.getMostProminentRGBImpl(data, 2, rgb, this.callback);
-    rgb = this.getMostProminentRGBImpl(data, 0, rgb, this.callback);
+    rgb = this.getMostProminentRGBImpl(data, 6, rgb);
+    rgb = this.getMostProminentRGBImpl(data, 4, rgb);
+    rgb = this.getMostProminentRGBImpl(data, 2, rgb);
+    rgb = this.getMostProminentRGBImpl(data, 0, rgb);
     return rgb;
   };
 
-  this.getImageData = function(imgEl, degrade, rgbMatch, colorFactorCallback) {
+  this.getImageData = function(imgEl) {
     
     var rgb,
         canvas = document.createElement('canvas'),
@@ -56,7 +56,7 @@ function ColorFinder(colorFactorCallback) {
     
     while ( (i += 4*factor) < length ) {
       if (data.data[i+3]>32) {
-        key = (data.data[i]>>degrade) + "," + (data.data[i+1]>>degrade) + "," + (data.data[i+2]>>degrade);
+        key = data.data[i] + "," + data.data[i+1] + "," + data.data[i+2];
         if (!result.hasOwnProperty(key)) {
           rgb = {r:data.data[i], g:data.data[i+1], b:data.data[i+2],count:1};
           rgb.weight = this.callback(rgb.r, rgb.g, rgb.b);
@@ -73,7 +73,7 @@ function ColorFinder(colorFactorCallback) {
 
   };
   
-  this.getMostProminentRGBImpl = function(pixels, degrade, rgbMatch, colorFactorCallback) {
+  this.getMostProminentRGBImpl = function(pixels, degrade, rgbMatch) {
     
     var rgb = {r:0,g:0,b:0,count:0,d:degrade},
         db={},
