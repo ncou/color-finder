@@ -104,7 +104,6 @@ function ColorFinder(colorFactorCallback) {
       
       if (count>rgb.count) {
         rgb.count = count;
-        data = i.split(",");
         rgb.r = r;
         rgb.g = g;
         rgb.b = b;
