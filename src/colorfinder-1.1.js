@@ -51,7 +51,8 @@ function ColorFinder(colorFactorCallback) {
 
     length = data.data.length;
     
-    var factor = Math.max(1,Math.round(length/5000));
+    //var factor = Math.max(1,Math.round(length/5000));
+    var factor = 5; // value beetween 1 to 10 (1 = slow, 10 = fast)
     var result = {};
     
     while ( (i += 4*factor) < length ) {
